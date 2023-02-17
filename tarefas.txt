@@ -1,0 +1,9 @@
+- Iniciar testes unitários
+
+- Finalizar descrições das rotas que usam roles diferentes
+@ApiOperation({ 
+    summary: 'Somente usuário com role tipo "client" pode acessar',
+})
+
+- Descrever rota por rota
+- Detalhar como setar authorization nas rotas de produto

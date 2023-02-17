@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { salesHistoryEntity } from "src/sales-history/sales-history.entity";
 
 @Table({ tableName: "products", modelName: "products" })
 export class ProductsEntity extends Model {
@@ -33,4 +34,7 @@ export class ProductsEntity extends Model {
     type: DataType.INTEGER
   })
   quantity: number
+
+  @HasMany(() => salesHistoryEntity)
+  saleshistory: salesHistoryEntity
 }

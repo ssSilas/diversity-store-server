@@ -3,7 +3,7 @@ import { UserService } from 'src/user/user.service';
 import { createHash } from 'crypto';
 import { JwtService } from '@nestjs/jwt';
 import { UsersEntity } from 'src/user/user.entity';
-import { CreateUserDto, UserDataForTokenDto } from 'helpers/dto/user.dto';
+import { CreateUserDto, UserDataForTokenDto } from 'utils/dto/user.dto';
 import configEnv from 'config/config.env';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class Tokengenerate {
     let hours: number = parseInt(time[0]);
     let minutes = parseInt(time[1]);
     let oneMinute = 60000;
-
+    console.log(user)
     let expiration = date + hours * 60 * oneMinute + minutes * oneMinute;
     const objTokengenerate: object = {
       iss: server,
@@ -32,7 +32,8 @@ export class Tokengenerate {
       nbf: Math.round(date / 1000),
       data: {
         id: user.id,
-        email: user.email
+        email: user.email,
+        roles: user.roles
       }
     }
     return this.jwtService.sign(objTokengenerate, { secret: secretKey, algorithm: 'HS256', })
@@ -48,17 +49,18 @@ export class AuthService {
     private readonly userService: UserService
   ) { }
 
-  async createUser(body: CreateUserDto) {
+  async createUser(data: CreateUserDto) {
     try {
       //validations
-      await this.userService.emailExist(body.email)
-      await this.userService.loginExist(body.login)
+      await this.userService.emailExist(data.email)
+      await this.userService.loginExist(data.login)
 
-      const generatePass = this.createHashForPass(body.password)
+      const generatePass = this.createHashForPass(data.password)
       return await this.userRepo.create({
-        name: body.name,
-        email: body.email,
-        login: body.login,
+        name: data.name,
+        email: data.email,
+        login: data.login,
+        roles: data.roles,
         password: generatePass,
         status: 1,
       })
@@ -86,13 +88,13 @@ export class AuthService {
       const passForCompare = this.createHashForPass(password)
       compare = passForCompare === user.password;
 
-      const response: object = {
+      const payload: object = {
         id: user.id,
-        email: user.email
+        email: user.email,
+        roles: user.roles
       }
-
       if (!compare) return null
-      return response
+      return payload
     } catch (error) {
       throw error
     }

@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { salesHistoryEntity } from "src/sales-history/sales-history.entity";
 
 @Table({ tableName: "users", modelName: "users" })
 export class UsersEntity extends Model {
@@ -35,8 +36,11 @@ export class UsersEntity extends Model {
   password: string
 
   @Column({
-    allowNull: true,
+    allowNull: false,
     type: DataType.STRING(150)
   })
   roles: string
+
+  @HasMany(() => salesHistoryEntity)
+  saleshistory: salesHistoryEntity
 }

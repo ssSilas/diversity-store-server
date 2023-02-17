@@ -1,7 +1,9 @@
-import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UsersEntity } from './user.entity';
 
 @Injectable()
+@UseGuards(AuthGuard('jwt'))
 export class UserService {
   constructor(
     @Inject('UsersEntity')
@@ -18,7 +20,7 @@ export class UserService {
     try {
       const user = await this.userRepo.findOne({
         raw: true,
-        attributes: ['id', 'email', 'password'],
+        attributes: ['id', 'email', 'password', 'roles'],
         where: { login }
       });
       if (!user) {
@@ -67,9 +69,6 @@ export class UserService {
   }
 
   async login(email: string, senha: string) {
-    return {
-      email,
-      senha
-    }
+    return { email, senha }
   }
 }
