@@ -23,6 +23,8 @@ export class UserService {
         attributes: ['id', 'email', 'password', 'roles'],
         where: { login }
       });
+
+      
       if (!user) {
         throw new UnauthorizedException(
           "O usuario não existe, favor informar um login válido"

@@ -9,6 +9,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
+  //cors config
+  app.enableCors({
+    origin:'http://localhost:3000',
+    methods:["GET,PUT,POST,DELETE"],
+    allowedHeaders:['Content-Type', 'Authorization']
+  })
+
   const configSwagger = new DocumentBuilder()
     .setTitle("Diversity Store - Server")
     .setDescription('Simulando uma loja virtual com 2 níveis de acesso')
