@@ -36,7 +36,12 @@ export class Tokengenerate {
         roles: user.roles
       }
     }
-    return this.jwtService.sign(objTokengenerate, { secret: secretKey, algorithm: 'HS256', })
+    return {
+      token: this.jwtService.sign(objTokengenerate, {
+        secret: secretKey, algorithm: 'HS256',
+      }),
+      roles: user.roles
+    }
   }
 }
 @Injectable()
@@ -72,8 +77,7 @@ export class AuthService {
 
   async login(user: UserDataForTokenDto, host: string) {
     try {
-      const response = await this.tokenGenerate.tokenApidot8(user, host)
-      return { token: response }
+      return await this.tokenGenerate.tokenApidot8(user, host)
     } catch (error) {
       throw error
     }

@@ -11,9 +11,9 @@ async function bootstrap() {
 
   //cors config
   app.enableCors({
-    origin:'http://localhost:3000',
-    methods:["GET,PUT,POST,DELETE"],
-    allowedHeaders:['Content-Type', 'Authorization']
+    origin: 'http://localhost:3000',
+    methods: ["GET,PUT,POST,DELETE"],
+    allowedHeaders: ['Content-Type', 'Authorization']
   })
 
   const configSwagger = new DocumentBuilder()
@@ -24,8 +24,7 @@ async function bootstrap() {
       type: 'http',
       scheme: 'bearer',
       bearerFormat: 'JWT'
-    },
-      'access-token',)
+    }, 'access-token',)
     .addTag('auth')
     .addTag('products')
     .build()

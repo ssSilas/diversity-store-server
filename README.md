@@ -36,7 +36,7 @@ autoLoadModels: true,
 synchronize: true,
 ```
 
-Após descomentar, execute o projeto. Valide se tudo foi sincronizado e comente as linhas novamente
+Após descomentar, execute o projeto. Valide se tudo foi sincronizado e comente as linhas novamente.
 ***É aconselhado executar essa ação apenas em ambiente de teste**.
 
 ---

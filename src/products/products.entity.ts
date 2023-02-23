@@ -35,6 +35,12 @@ export class ProductsEntity extends Model {
   })
   quantity: number
 
+  @Column({
+    allowNull: false,
+    type: DataType.STRING(255)
+  })
+  imagelink: string
+
   @HasMany(() => salesHistoryEntity)
   saleshistory: salesHistoryEntity
 }
