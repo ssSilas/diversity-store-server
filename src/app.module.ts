@@ -10,6 +10,7 @@ import { UsersEntity } from './user/user.entity';
 import { ProductsEntity } from './products/products.entity';
 import { SalesHistoryModule } from './sales-history/sales-history.module';
 import { salesHistoryEntity } from './sales-history/sales-history.entity';
+import { Products2Module } from './products2/products2.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { salesHistoryEntity } from './sales-history/sales-history.entity';
     AuthModule,
     UserModule,
     ProductsModule,
-    SalesHistoryModule
+    SalesHistoryModule,
+    Products2Module
   ],
   providers: [],
   controllers: [],
